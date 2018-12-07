@@ -146,12 +146,10 @@ class NumberConverter extends Component {
         let romanNumber = 'impossible to convert';
         let arrayThousands = [];
         let searchThousands = true;
-        console.log("decimalToRomanOver::decimal = " + decimal);
         while (searchThousands) {
             let tmpArray = this.getThousands(decimal);
             arrayThousands.push(tmpArray[0]);
             decimal = tmpArray[1];
-            console.log("number = " + decimal);
             if (decimal < 4000) {
                 arrayThousands.push(decimal);
                 searchThousands = false;
@@ -162,14 +160,10 @@ class NumberConverter extends Component {
         // I make groups of quantities in order to put lines o ver their roman representation
         let arrayRoman = [];
 
-        console.log(arrayThousands);
         for(let i=0;i<arrayThousands.length;i++){
             arrayRoman.push(this.decimalToRomanUnder4000(arrayThousands[i],true));
         }
-        
-        console.log(arrayRoman.length);
-       
-
+    
         // This is to paint the number of lines over the roman number
         // There is a better way in React to do it (using maps), but don't have time to solve it on the smart way
         let arrayLines = [
@@ -223,12 +217,10 @@ class NumberConverter extends Component {
     getThousands(number) {
         let result = [];
         let thousands = number % 1000;
-        console.log("getThousandds 1::" +thousands);
         result.push(thousands);
         number = number - thousands;
         number = number / 1000;
         result.push(number);
-        console.log("getThousands::result = " + result);
         return result;
     }
 
