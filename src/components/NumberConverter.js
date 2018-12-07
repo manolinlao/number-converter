@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ToggleButton from 'react-toggle-button';
 import './NumberConverter.css';
 
 class NumberConverter extends Component {
@@ -36,11 +37,28 @@ class NumberConverter extends Component {
     // Control buttons' click event
     // ==================================================================================================================
     onClickConvertButton(event){
+        let mode = event.target.id;
+        if(mode === 'clear'){
+            this.setState({
+                inputValue: '',
+                resultConversion: ''
+            });
+            return;
+        } 
+        this.convert(mode);
+    }
+
+    // ==================================================================================================================
+    // Convert
+    // mode can be:  binToRoman, decToRoman
+    // ==================================================================================================================
+    convert(mode){
+        console.log("convert:: mode = " + mode);
         let inputValue = this.state.inputValue;
         let numberToConvert = 0;
         let resultConversion = '';
 
-        switch(event.target.id){
+        switch(mode){
             case 'binToRoman':
                 //Only want 1 & 0
                 if(this.isBinary(inputValue)){
@@ -53,12 +71,6 @@ class NumberConverter extends Component {
                     numberToConvert = parseInt(inputValue,10);
                 }         
             break;
-            case 'clear':
-                this.setState({
-                    inputValue: '',
-                    resultConversion: ''
-                });
-            return;
             default:
                 numberToConvert = 0;
             break;
@@ -269,7 +281,6 @@ class NumberConverter extends Component {
                 <br></br>
                 <button id="decToRoman" onClick={this.onClickConvertButton}>Dec to Roman</button>
                 <button id="binToRoman" onClick={this.onClickConvertButton}>Bin to Roman</button>
-                
             </div>
         
             <div className="ConvertResult">
