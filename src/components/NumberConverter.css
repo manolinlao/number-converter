@@ -1,3 +1,37 @@
 .NumberComponentContainer{
     background: green;
 }
+
+.NoLine{
+    display: inline-block;
+}
+
+.OverLine{
+    text-decoration: overline;
+    display: inline-block;
+}
+
+.DoubleOverLine{
+    text-decoration: overline;
+    text-decoration-style: double;
+    display: inline-block;
+}
+
+.RomanTable{
+    padding: 0;
+    vertical-align: bottom;
+}
+
+.CellRomanTable{
+    vertical-align: bottom;
+    margin: 0;
+    padding:0;
+}
+
+hr{
+    padding:0;
+    height:0;
+    clear:both;
+    font-size:3px;
+
+}
