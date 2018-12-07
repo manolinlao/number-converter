@@ -8,7 +8,6 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          Number Converter App
           <img src={logo} className="App-logo" alt="logo"/>
           <NumberConverter></NumberConverter>
         </header>

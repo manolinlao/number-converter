@@ -9,8 +9,7 @@ class NumberConverter extends Component {
     constructor(props){
         super(props);
         this.state = {
-            titleText: 'NumberConverter component',
-            labelText: 'Enter number',
+            titleText: 'NumberConverter Component',
             inputValue: '',
             resultConversion: ''
         }
@@ -164,7 +163,7 @@ class NumberConverter extends Component {
             arrayRoman.push(this.decimalToRomanUnder4000(arrayThousands[i],true));
         }
     
-        // This is to paint the number of lines over the roman number
+        // This is to draw the number of lines over the roman number
         // There is a better way in React to do it (using maps), but don't have time to solve it on the smart way
         let arrayLines = [
                             <div><hr></hr></div>,
@@ -181,7 +180,7 @@ class NumberConverter extends Component {
                             <div><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr></div>
                         ];
         
-        // Paint a table with 2 rows, the upper row will be to paint the lines    
+        // Draw a table with 2 rows, the upper row will be to draw the lines    
         let rows = [];
         for(var i=0;i<2;i++){
             let rowID = `row${i}`;
@@ -192,7 +191,7 @@ class NumberConverter extends Component {
                     cell.push(<td key={cellID} id={cellID}>{arrayRoman[idx]}</td>);
                 }else{
                     let strLine = '';
-                    if(arrayThousands[idx]!=0){
+                    if(arrayThousands[idx]!==0){
                         let numLines = arrayRoman.length-(idx+1);
                         strLine = arrayLines[numLines-1];
                     } 
@@ -260,23 +259,23 @@ class NumberConverter extends Component {
       return (
         <div className='NumberComponentContainer'>
 
-            <div>
+            <div className="ConvertTitle">
                 {this.state.titleText}
-                <br></br>
-                <label>{this.state.labelText}</label>
+            </div>
+
+            <div className="ConvertForm">
                 <input type='text' value={this.state.inputValue} onChange={this.onChange}/>
+                <button id="clear" onClick={this.onClickConvertButton}>Clear</button>
+                <br></br>
                 <button id="decToRoman" onClick={this.onClickConvertButton}>Dec to Roman</button>
                 <button id="binToRoman" onClick={this.onClickConvertButton}>Bin to Roman</button>
-                <button id="clear" onClick={this.onClickConvertButton}>Clear</button>
+                
             </div>
         
-            <div>
-                input value: {this.state.inputValue}
-                <br></br><br></br>
-                {this.state.resultConversion}
-                <br></br><br></br>
+            <div className="ConvertResult">
+                    {this.state.resultConversion}
             </div>
-            
+                
         </div>
       );
     }
