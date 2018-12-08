@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ToggleButton from 'react-toggle-button';
 import './NumberConverter.css';
 
 class NumberConverter extends Component {
@@ -19,10 +18,15 @@ class NumberConverter extends Component {
         this.state = {
             titleText: 'NumberConverter Component',
             inputValue: '',
-            resultConversion: ''
+            resultConversion: '',
+            decToRomanText: 'Dec to Roman',
+            binToRomanText: 'Bin to Roman',
+            activeState:'DecToRoman',
+            activeStateText: 'Dec to Roman'
         }
         this.onChange = this.onChange.bind(this);
         this.onClickConvertButton = this.onClickConvertButton.bind(this);
+        this.onClickToggleButton = this.onClickToggleButton.bind(this);
         this.focus = this.focus.bind(this);
     }
 
@@ -42,10 +46,29 @@ class NumberConverter extends Component {
     }
 
     // ==================================================================================================================
+    // Control Toggle button
+    // ==================================================================================================================
+    onClickToggleButton(event){
+        if(this.state.activeState === 'DecToRoman'){
+            this.setState({
+                activeState: 'BinToRoman',
+                activeStateText: 'Bin to Roman'
+            });
+        }else{
+            this.setState({
+                activeState: 'DecToRoman',
+                activeStateText: 'Dec to Roman'
+            });
+        }
+        this.formInput.focus();
+    }
+
+    // ==================================================================================================================
     // Control buttons' click event
     // ==================================================================================================================
     onClickConvertButton(event){
         let mode = event.target.id;
+        console.log('onClickConvertButton::mode = ' + mode);
         if(mode === 'clear'){
             this.setState({
                 inputValue: '',
@@ -69,13 +92,13 @@ class NumberConverter extends Component {
         let resultConversion = '';
 
         switch(mode){
-            case 'binToRoman':
+            case 'BinToRoman':
                 //Only want 1 & 0
                 if(this.isBinary(inputValue)){
                     numberToConvert = parseInt(inputValue,2);
                 }               
             break;
-            case 'decToRoman':
+            case 'DecToRoman':
                 //Only want numbers
                 if(this.isDecimal(inputValue)){
                     numberToConvert = parseInt(inputValue,10);
@@ -290,15 +313,18 @@ class NumberConverter extends Component {
             </div>
 
             <div className="ConvertForm">
-                <input ref={(input) => { this.formInput = input; }}  type='text' value={this.state.inputValue} onChange={this.onChange}/>
-                <button id="clear" onClick={this.onClickConvertButton}>Clear</button>
+                <input ref={(input) => { this.formInput = input; }}  type='text' value={this.state.inputValue} onChange={this.onChange} className="InputForm"/>
+                <button id="clear" onClick={this.onClickConvertButton} className="ClearButton">Clear</button>
                 <br></br>
-                <button id="decToRoman" onClick={this.onClickConvertButton}>Dec to Roman</button>
-                <button id="binToRoman" onClick={this.onClickConvertButton}>Bin to Roman</button>
+                <button id={this.state.activeState} onClick={this.onClickToggleButton} className="ToggleButton">{this.state.activeStateText}</button>
+                <button id={this.state.activeState} onClick={this.onClickConvertButton} className="ConvertButtonToggle">Convert</button>
+                <br></br>
+                <button id="DecToRoman" onClick={this.onClickConvertButton} className="ConvertButton">{this.state.decToRomanText}</button>
+                <button id="BinToRoman" onClick={this.onClickConvertButton} className="ConvertButton">{this.state.binToRomanText}</button>
             </div>
         
             <div className="ConvertResult">
-                    {this.state.resultConversion}
+                {this.state.resultConversion}
             </div>
                 
         </div>
