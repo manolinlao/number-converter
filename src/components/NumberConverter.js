@@ -20,7 +20,9 @@ class NumberConverter extends Component {
             inputValue: '',
             resultConversion: '',
             activeState:'DecToRoman',
-            activeStateText: 'Dec to Roman'
+            activeStateText: 'Dec to Roman',
+            clearButtonText: 'clear',
+            convertButtonText: 'CONVERT'
         }
         this.onChange = this.onChange.bind(this);
         this.onClickConvertButton = this.onClickConvertButton.bind(this);
@@ -319,10 +321,10 @@ class NumberConverter extends Component {
 
             <div className="ConvertForm">
                 <input ref={(input) => { this.formInput = input; }}  type='text' value={this.state.inputValue} onChange={this.onChange} onKeyPress={this.onKeyPress} className="InputForm"/>
-                <button id="clear" onClick={this.onClickConvertButton} className="ClearButton">Clear</button>
+                <button id="clear" onClick={this.onClickConvertButton} className="ClearButton">{this.state.clearButtonText}</button>
                 <br></br>
                 <button id={this.state.activeState} onClick={this.onClickToggleButton} className="ToggleButton">{this.state.activeStateText}</button>
-                <button id={this.state.activeState} onClick={this.onClickConvertButton} className="ConvertButton">Convert</button>
+                <button id={this.state.activeState} onClick={this.onClickConvertButton} className="ConvertButton">{this.state.convertButtonText}</button>
             </div>
         
             <div className="ConvertResult">
