@@ -4,13 +4,6 @@ import './NumberConverter.css';
 class NumberConverter extends Component {
 
     // ==================================================================================================================
-    // To get focus once the component is mounted
-    // ==================================================================================================================
-    componentDidMount(){
-        this.formInput.focus();
-    }
-
-    // ==================================================================================================================
     // Constructor
     // ==================================================================================================================
     constructor(props){
@@ -28,7 +21,13 @@ class NumberConverter extends Component {
         this.onClickConvertButton = this.onClickConvertButton.bind(this);
         this.onClickToggleButton = this.onClickToggleButton.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
-        this.focus = this.focus.bind(this);
+    }
+
+    // ==================================================================================================================
+    // To get focus once the component is mounted
+    // ==================================================================================================================
+    componentDidMount(){
+        this.formInput.focus();
     }
 
 
@@ -301,10 +300,6 @@ class NumberConverter extends Component {
             }
         }
         return true;
-    }
-
-    focus(){
-        this.input.focus();
     }
 
 
