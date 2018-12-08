@@ -5,6 +5,13 @@ import './NumberConverter.css';
 class NumberConverter extends Component {
 
     // ==================================================================================================================
+    // To get focus once the component is mounted
+    // ==================================================================================================================
+    componentDidMount(){
+        this.formInput.focus();
+    }
+
+    // ==================================================================================================================
     // Constructor
     // ==================================================================================================================
     constructor(props){
@@ -16,6 +23,7 @@ class NumberConverter extends Component {
         }
         this.onChange = this.onChange.bind(this);
         this.onClickConvertButton = this.onClickConvertButton.bind(this);
+        this.focus = this.focus.bind(this);
     }
 
 
@@ -43,8 +51,10 @@ class NumberConverter extends Component {
                 inputValue: '',
                 resultConversion: ''
             });
+            this.formInput.focus();
             return;
         } 
+        this.formInput.focus();
         this.convert(mode);
     }
 
@@ -263,6 +273,10 @@ class NumberConverter extends Component {
         return true;
     }
 
+    focus(){
+        this.input.focus();
+    }
+
 
     // ==================================================================================================================
     // React render
@@ -276,7 +290,7 @@ class NumberConverter extends Component {
             </div>
 
             <div className="ConvertForm">
-                <input type='text' value={this.state.inputValue} onChange={this.onChange}/>
+                <input ref={(input) => { this.formInput = input; }}  type='text' value={this.state.inputValue} onChange={this.onChange}/>
                 <button id="clear" onClick={this.onClickConvertButton}>Clear</button>
                 <br></br>
                 <button id="decToRoman" onClick={this.onClickConvertButton}>Dec to Roman</button>
