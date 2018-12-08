@@ -79,15 +79,16 @@ hr{
 }
 
 .InputForm{
-    width:200px;
+    width:214px;
     font-size: 20px;
     padding:4px;
     margin-right: 10px;
     text-align: center;
+    border: 3px solid #083c5d;
 }
 
 .ClearButton{
-    width:80px;
+    width:60px;
     border:0px;
     font-size: 15px;
     font-weight: bold;
@@ -96,38 +97,26 @@ hr{
     cursor: pointer;
 }
 
-
-.ConvertButton{
-    width: 150px;
-    margin-top: 15px;
-    margin-right: 10px;
-    border:0px;
-    font-size: 15px;
-    font-weight: bold;
-    background: #083c5d;
-    color: #d1e8e2;
-    cursor: pointer;
-}
-
 .ToggleButton{
     width: 150px;
     margin-top: 10px;
-    border: 0px;
+    border: 4px solid #083c5d;
     font-size: 15px;
     font-weight: bold;
-    background: #083c5d;
-    color: #d1e8e2;
+    background: #4a6572;
+    color: white;
     cursor: pointer;
 }
 
-.ConvertButtonToggle{
+.ConvertButton{
     width: 80px;
+    height: 30px;
     margin-top: 10px;
     margin-right: 10px;
     border:0px;
     font-size: 15px;
     font-weight: bold;
-    background: #494e68;
+    background: #083c5d;
     color: #d1e8e2;
     cursor: pointer;
 }

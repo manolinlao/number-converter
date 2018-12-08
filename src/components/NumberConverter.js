@@ -19,14 +19,13 @@ class NumberConverter extends Component {
             titleText: 'NumberConverter Component',
             inputValue: '',
             resultConversion: '',
-            decToRomanText: 'Dec to Roman',
-            binToRomanText: 'Bin to Roman',
             activeState:'DecToRoman',
             activeStateText: 'Dec to Roman'
         }
         this.onChange = this.onChange.bind(this);
         this.onClickConvertButton = this.onClickConvertButton.bind(this);
         this.onClickToggleButton = this.onClickToggleButton.bind(this);
+        this.onKeyPress = this.onKeyPress.bind(this);
         this.focus = this.focus.bind(this);
     }
 
@@ -36,12 +35,23 @@ class NumberConverter extends Component {
     // ==================================================================================================================
     onChange(event){
         this.setState({
-            inputValue: event.target.value
+            resultConversion: ''
         });
-        if(event.target.value===""){
-            this.setState({
-                resultConversion: ''
-            });
+ 
+        this.setState({
+            inputValue: event.target.value
+        });        
+    }
+
+    // ==================================================================================================================
+    // Control of key presses
+    // If press Enter, make conversion
+    // ==================================================================================================================
+    onKeyPress(event){
+        let keyPressed = event.key;
+        if(keyPressed==='Enter'){
+            event.target.id = this.state.activeState;
+            this.onClickConvertButton(event);
         }
     }
 
@@ -65,28 +75,13 @@ class NumberConverter extends Component {
 
     // ==================================================================================================================
     // Control buttons' click event
+    // we read the id of the buttn, this will be the mode 
+    // mode can have these values: 'BinToRoman','DecToRoman','clear'
     // ==================================================================================================================
     onClickConvertButton(event){
         let mode = event.target.id;
         console.log('onClickConvertButton::mode = ' + mode);
-        if(mode === 'clear'){
-            this.setState({
-                inputValue: '',
-                resultConversion: ''
-            });
-            this.formInput.focus();
-            return;
-        } 
-        this.formInput.focus();
-        this.convert(mode);
-    }
-
-    // ==================================================================================================================
-    // Convert
-    // mode can be:  binToRoman, decToRoman
-    // ==================================================================================================================
-    convert(mode){
-        console.log("convert:: mode = " + mode);
+        
         let inputValue = this.state.inputValue;
         let numberToConvert = 0;
         let resultConversion = '';
@@ -104,6 +99,14 @@ class NumberConverter extends Component {
                     numberToConvert = parseInt(inputValue,10);
                 }         
             break;
+            case 'clear':
+                this.setState({
+                    inputValue: '',
+                    resultConversion: ''
+                });
+                this.formInput.focus();
+                return;
+            
             default:
                 numberToConvert = 0;
             break;
@@ -112,6 +115,8 @@ class NumberConverter extends Component {
         if(!isNaN(numberToConvert)){
             resultConversion = this.decimalToRoman(numberToConvert);
         }
+
+        this.formInput.focus();
 
         this.setState({
             resultConversion: resultConversion
@@ -313,14 +318,11 @@ class NumberConverter extends Component {
             </div>
 
             <div className="ConvertForm">
-                <input ref={(input) => { this.formInput = input; }}  type='text' value={this.state.inputValue} onChange={this.onChange} className="InputForm"/>
+                <input ref={(input) => { this.formInput = input; }}  type='text' value={this.state.inputValue} onChange={this.onChange} onKeyPress={this.onKeyPress} className="InputForm"/>
                 <button id="clear" onClick={this.onClickConvertButton} className="ClearButton">Clear</button>
                 <br></br>
                 <button id={this.state.activeState} onClick={this.onClickToggleButton} className="ToggleButton">{this.state.activeStateText}</button>
-                <button id={this.state.activeState} onClick={this.onClickConvertButton} className="ConvertButtonToggle">Convert</button>
-                <br></br>
-                <button id="DecToRoman" onClick={this.onClickConvertButton} className="ConvertButton">{this.state.decToRomanText}</button>
-                <button id="BinToRoman" onClick={this.onClickConvertButton} className="ConvertButton">{this.state.binToRomanText}</button>
+                <button id={this.state.activeState} onClick={this.onClickConvertButton} className="ConvertButton">Convert</button>
             </div>
         
             <div className="ConvertResult">
