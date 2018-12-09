@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import './NumberConverter.css';
 
 class NumberConverter extends Component {
@@ -9,7 +10,6 @@ class NumberConverter extends Component {
     constructor(props){
         super(props);
         this.state = {
-            titleText: 'NumberConverter Component',
             inputValue: '',
             resultConversion: '',
             activeState:'DecToRoman',
@@ -184,13 +184,14 @@ class NumberConverter extends Component {
     // ==================================================================================================================
     // Paints roman number greater than 3999
     // If number>3999 we need another method as we cannot paint the same symbol together more than 3 times
-    // a line over the roman number represents it must be multiplied by 1000
-    // 2 lines over *1000*1000
-    // 3 lines over *1000*1000*1000
+    // a line over the roman number means it must be multiplied *1000
+    // 2 lines over --> the number must be multiplied *1000*1000
+    // 3 lines over --> the number must be multiplied *1000*1000*1000
     // etc
     // For example: 
-    //   to represent 4000 it is not MMMM but V (with a line over)
-    //   to represent 327245 it would be CCCXXVII(with a line over)CCXLV
+    //      to write 4000, it is not MMMM but V (with a line over)
+    //      to write 327245, it is CCCXXVII(with 1 line over)CCXLV
+    //      to write 4324324, it IV(with 2 lines over)CCCXXIV(with 1 line over)CCCXXIV
     // ==================================================================================================================
     decimalToRomanOver4000(decimal){
         let romanNumber = 'impossible to convert';
@@ -310,25 +311,31 @@ class NumberConverter extends Component {
       return (
         <div className='NumberComponentContainer'>
 
-            <div className="ConvertTitle">
-                {this.state.titleText}
+            <div className='ConvertTitle'>
+                {this.props.title}
             </div>
 
-            <div className="ConvertForm">
-                <input ref={(input) => { this.formInput = input; }}  type='text' value={this.state.inputValue} onChange={this.onChange} onKeyPress={this.onKeyPress} className="InputForm"/>
-                <button id="clear" onClick={this.onClickConvertButton} className="ClearButton">{this.state.clearButtonText}</button>
+            <div className='ConvertForm'>
+                <div className = 'InputContainer'>
+                    <input ref={(input) => { this.formInput = input; }}  type='text' value={this.state.inputValue} onChange={this.onChange} onKeyPress={this.onKeyPress} className='InputForm'/>
+                    <button id='clear' onClick={this.onClickConvertButton} className='ClearButton'>{this.state.clearButtonText}</button>
+                </div>
                 <br></br>
-                <button id={this.state.activeState} onClick={this.onClickToggleButton} className="ToggleButton">{this.state.activeStateText}</button>
-                <button id={this.state.activeState} onClick={this.onClickConvertButton} className="ConvertButton">{this.state.convertButtonText}</button>
+                <button id={this.state.activeState} onClick={this.onClickToggleButton} className='ToggleButton'>{this.state.activeStateText}</button>
+                <button id={this.state.activeState} onClick={this.onClickConvertButton} className='ConvertButton'>{this.state.convertButtonText}</button>
             </div>
         
-            <div className="ConvertResult">
+            <div className='ConvertResult'>
                 {this.state.resultConversion}
             </div>
                 
         </div>
       );
     }
+  }
+
+  NumberConverter.propTypes = {
+      title: propTypes.string
   }
   
   export default NumberConverter;

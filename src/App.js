@@ -9,7 +9,8 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo"/>
-          <NumberConverter></NumberConverter>
+          <NumberConverter
+            title="Number Converter"/>
         </header>
       </div>
     );
